@@ -1,0 +1,61 @@
+// =======
+// Plugins
+// =======
+apply from: "$rootDir/gradle/repositories.gradle"
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'application'
+
+mainClassName = "rk.projects.titan.TitanApplication"
+
+// ============
+// Dependencies
+// ============
+dependencies {
+    runtime project(':titan-server')
+}
+
+tasks.getByName("distZip") {
+
+}
+
+distributions {
+    main {
+        contents {
+            into ('var') {
+                from("$projectDir/src/standard/var") {
+                    exclude '**/.gitkeep'
+                    exclude '**/*.log'
+                    exclude 'data/**/*'
+                    includeEmptyDirs true
+                }
+            }
+            into ('scripts') {
+                from("$projectDir/src/standard/scripts") {
+                    exclude '**/.gitkeep'
+                    includeEmptyDirs true
+                }
+            }
+        }
+    }
+}
+
+// ======================================
+// Configure Eclipse Project Dependencies
+// ======================================
+eclipse {
+    project {
+        referencedProjects 'titan-server'
+    }
+}
+
+// ======================================
+// Configure the 'run' task, so you can
+// start the server with './gradlew run'
+// ======================================
+run {
+    args+="server"
+    args+="$projectDir/src/dev/var/conf/server.yml"
+
+    workingDir="$projectDir/src/standard"
+}

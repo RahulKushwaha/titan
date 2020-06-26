@@ -1,0 +1,9 @@
+[Unit]
+Description=titan
+
+[Service]
+WorkingDirectory=/opt/api/
+ExecStart=/opt/api/scripts/api.sh
+
+[Install]
+WantedBy=multi-user.target

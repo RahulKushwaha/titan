@@ -1,0 +1,50 @@
+// =====
+// Build
+// =====
+buildscript {
+    apply from: "$rootDir/gradle/repositories.gradle", to: buildscript
+
+    dependencies {
+        classpath "commons-codec:commons-codec:$commonsCodecVersion"
+        classpath "gradle.plugin.org.inferred:gradle-processors:$gradleProcessorsVersion"
+    }
+}
+
+// =======
+// Plugins
+// =======
+plugins {
+    id "com.palantir.git-version" version "$gitVersionVersion"
+}
+
+apply from: "$rootDir/gradle/repositories.gradle"
+apply plugin: 'java'
+apply plugin: 'idea'
+
+// ============
+// Repositories
+// ============
+repositories {
+    mavenCentral()
+}
+
+allprojects {
+    group 'rk.projects.titan'
+    version gitVersion()
+
+    // ============
+    // Java Version
+    // ============
+    sourceCompatibility = "1.$jreMinorVersion"
+    targetCompatibility = "1.$jreMinorVersion"
+}
+
+// ====
+// IDEA
+// ====
+apply from: "$rootDir/gradle/idea.gradle"
+
+subprojects {
+    apply plugin: 'idea'
+    apply plugin: 'org.inferred.processors'
+}

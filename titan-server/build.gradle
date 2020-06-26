@@ -1,0 +1,47 @@
+// =======
+// Plugins
+// =======
+apply from: "$rootDir/gradle/repositories.gradle"
+apply plugin: 'java'
+
+// ============
+// Dependencies
+// ============
+dependencies {
+    compile project(':titan-api')
+    compile "io.dropwizard:dropwizard-core:$dropwizardVersion"
+    compile "io.dropwizard:dropwizard-jdbi3:$dropwizardVersion"
+
+    compile "org.antlr:stringtemplate:$antlrVersion"
+    compile "org.postgresql:postgresql:$postgresqlVersion"
+    compile "commons-codec:commons-codec:$commonsCodecVersion"
+    compile "com.google.guava:guava:$guavaVersion"
+    compile "org.apache.directory.studio:org.apache.commons.io:$apacheCommonsVersion"
+    compile "org.immutables:value:$immutablesVersion"
+
+    compile "javax.activation:activation:$activationVersion"
+    compile "org.glassfish.jaxb:jaxb-runtime:$jaxbVersion"
+    compile "javax.xml.bind:jaxb-api:$jaxbVersion"
+
+
+    processor "org.immutables:value:2.8.2"
+    compileOnly "org.immutables:value:2.8.2"
+
+    testCompile "io.dropwizard:dropwizard-testing:$dropwizardVersion"
+    // https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams-tck
+    testCompile group: 'org.reactivestreams', name: 'reactive-streams-tck', version: '1.0.3'
+
+    // https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-sqs
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-sqs', version: '1.11.805'
+
+    // https://mvnrepository.com/artifact/software.amazon.awssdk/sqs
+    compile group: 'software.amazon.awssdk', name: 'sqs', version: '2.13.41'
+
+    // https://mvnrepository.com/artifact/io.projectreactor/reactor-core
+    compile group: 'io.projectreactor', name: 'reactor-core', version: '3.3.6.RELEASE'
+    // https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams
+    compile group: 'org.reactivestreams', name: 'reactive-streams', version: '1.0.3'
+
+    // https://mvnrepository.com/artifact/io.lettuce/lettuce-core
+    compile group: 'io.lettuce', name: 'lettuce-core', version: '5.3.1.RELEASE'
+}
