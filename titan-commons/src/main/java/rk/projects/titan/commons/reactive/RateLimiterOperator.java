@@ -3,7 +3,6 @@ package rk.projects.titan.commons.reactive;
 import com.google.common.util.concurrent.RateLimiter;
 import java.util.function.UnaryOperator;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 public class RateLimiterOperator<T> implements UnaryOperator<Flux<T>> {
 
@@ -14,6 +13,7 @@ public class RateLimiterOperator<T> implements UnaryOperator<Flux<T>> {
   }
 
   public static <V> RateLimiterOperator<V> of(final RateLimiter rateLimiter) {
+    System.out.println("New Rate Limiter created.");
     return new RateLimiterOperator<>(rateLimiter);
   }
 
@@ -25,13 +25,6 @@ public class RateLimiterOperator<T> implements UnaryOperator<Flux<T>> {
    */
   @Override
   public Flux<T> apply(Flux<T> tFlux) {
-    if (rateLimiter.tryAcquire()) {
-      return tFlux;
-    }
-
-    return Flux.defer(() -> Mono.just(this.rateLimiter.acquire()))
-        .flatMap(ignoreResult -> {
-          return tFlux;
-        });
+    return new FluxRateLimiter<>(tFlux, this.rateLimiter);
   }
 }

@@ -8,6 +8,13 @@ apply plugin: 'java'
 // Dependencies
 // ============
 dependencies {
+    compile "com.google.guava:guava:$guavaVersion"
+    // https://mvnrepository.com/artifact/software.amazon.awssdk/dynamodb
+    compile group: 'software.amazon.awssdk', name: 'dynamodb', version: '2.13.46'
+
+    // https://mvnrepository.com/artifact/org.glassfish.hk2/hk2-api
+    compile group: 'org.glassfish.hk2', name: 'hk2-api', version: '2.6.1'
+
     // https://mvnrepository.com/artifact/org.reactivestreams/reactive-streams-tck
     testCompile group: 'org.reactivestreams', name: 'reactive-streams-tck', version: '1.0.3'
 

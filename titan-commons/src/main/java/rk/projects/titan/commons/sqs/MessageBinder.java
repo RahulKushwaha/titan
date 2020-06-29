@@ -13,7 +13,10 @@ public class MessageBinder extends AbstractBinder {
    */
   @Override
   protected void configure() {
-
+    this.bind(
+        "https://sqs.us-east-1.amazonaws.com/735354846484/integration_userserviceasync_internal_messaging")
+        .to(String.class)
+        .named("queueUrl");
 
     this.bind(AmazonSQSClientBuilder.defaultClient())
         .to(AmazonSQS.class);
