@@ -14,6 +14,7 @@ public class SQSMessageReceiverAsync {
   private final SqsAsyncClient sqsAsyncClient;
   private final String queueUrl;
   private Supplier<CompletableFuture<ReceiveMessageResponse>> messageConsumer;
+  private MessageProcessor messageProcessor;
 
   public SQSMessageReceiverAsync(final SqsAsyncClient sqsAsyncClient, String queueUrl) {
     this.sqsAsyncClient = sqsAsyncClient;

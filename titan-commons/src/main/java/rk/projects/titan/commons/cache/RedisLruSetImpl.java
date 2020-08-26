@@ -32,7 +32,7 @@ public class RedisLruSetImpl<K> implements LruSet<K> {
   @Override
   public Mono<K> set(K k) {
     return this.get(k)
-        .switchIfEmpty(this.cache.reactive()
+        .switchIfEmpty(Mono.defer(() -> this.cache.reactive()
             .zadd(this.name, System.currentTimeMillis(), k)
             .flatMap(score -> {
               return this.cache.reactive()
@@ -40,7 +40,7 @@ public class RedisLruSetImpl<K> implements LruSet<K> {
                   .flatMap(numberOfElementsRemove -> {
                     return Mono.just(k);
                   });
-            }));
+            })));
   }
 
   @Override
